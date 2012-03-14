@@ -77,12 +77,12 @@ def search():
                 query = query.replace("//", " site:")
                 query = query.replace(" site:.com", "")
     else:
-        wikiurl = "https://en.wikipedia.org/w/api.php?format=json&action=query&titles=" + query
+        wikiurl = "https://en.wikipedia.org/w/api.php?format=json&action=query&titles=" + urllib.quote(query)
         #request = urllib2.Request(url=wikiurl, headers={'User-Agent': 'Pass-Thrust'})
         wikijson = urllib2.urlopen(wikiurl).read()
         res = json.loads(wikijson)
         if int(res[u'query'][u'pages'].keys()[0]) != -1:
-            wikipedia = "http://en.wikipedia.org/wiki/" + urllib.quote_plus(query)
+            wikipedia = "http://en.wikipedia.org/wiki/" + urllib.quote(query)
             return redirect(wikipedia)
     bing = "http://bing.com/search?q=" + urllib.quote_plus(query)
     return redirect(bing)
