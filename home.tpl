@@ -41,7 +41,7 @@
 </head>
 <body>
   <h2>Pass Thrust</h2>
-  <form action="/passthrust/" method="get">
+  <form action="/search" method="get">
     <input type="text" name="q">
     <a href="#" style='font-size:12px' onclick='hide_and_show("help")'>Help</a>
   </form>

@@ -1,25 +1,33 @@
-import os, re 
-from urllib import urlencode, FancyURLopener
-from flask import Flask, redirect
+import os, re, json
+import urllib2, urllib
+from flask import Flask, redirect, request
 app = Flask(__name__)
-
-class AppUrlOpener(FancyURLopener):
-    version = "Pass-Thrust"
 
 @app.route('/')
 def index():
     returnfile = open("home.tpl", 'r')
     returnstr = returnfile.read()
+    print "hi"
     return returnstr
 
-@app.route('/search/<query>')
-def search(query):
-    if re.match("=", query):
-        query = urlencode(query)
-        return redirect("http://wolframalpha.com/input/?i=" + query)
+@app.route('/search')
+def search():
+    query = urllib.unquote_plus(request.args.get('q', ''))
+    if re.search("^=", query):
+        wolframalpha = "http://wolframalpha/input/?i=" + urllib.quote_plus(query[1:])
+        return redirect(wolframalpha)
     else:
-        wikiapi = AppUrlOpener.open("https://en.wikipedia.org/w/api.php?format=json&action=query&titles=" + query).read()
-        return wikiapi
+        wikiurl = "https://en.wikipedia.org/w/api.php?format=json&action=query&titles=" + query
+        #request = urllib2.Request(url=wikiurl, headers={'User-Agent': 'Pass-Thrust'})
+        wikijson = urllib2.urlopen(wikiurl).read()
+        res = json.loads(wikijson)
+        if int(res[u'query'][u'pages'].keys()[0]) != -1:
+            wikipedia = "http://en.wikipedia.org/wiki/" + urllib.quote_plus(query)
+            return redirect(wikipedia)
+        else:
+            bing = "http://bing.com/search?q=" + urllib.quote_plus(query)
+            return redirect(bing)
+    #return "hi"
 
 if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 5000.
