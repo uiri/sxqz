@@ -1,5 +1,5 @@
 import os, re, json
-import urllib2, urllib, mwparser
+import urllib2, urllib
 from flask import Flask, redirect, request, render_template
 app = Flask(__name__)
 shortcuts = { 	"a" : "amazon.com/s/?field-keywords=",
