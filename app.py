@@ -1,9 +1,9 @@
 import os, re 
-from urllib import urlencode, FancyURLOpener
+from urllib import urlencode, FancyURLopener
 from flask import Flask, redirect
 app = Flask(__name__)
 
-class AppUrlOpener(FancyURLOpener):
+class AppUrlOpener(FancyURLopener):
     version = "Pass-Thrust"
 
 @app.route('/')
