@@ -75,6 +75,7 @@ def search():
                 return redirect(newurl)
             else:
                 query = query.replace("//", " site:")
+                query = query.replace(" site:.com", "")
     else:
         wikiurl = "https://en.wikipedia.org/w/api.php?format=json&action=query&titles=" + query
         #request = urllib2.Request(url=wikiurl, headers={'User-Agent': 'Pass-Thrust'})
