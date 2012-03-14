@@ -2,6 +2,18 @@ import os, re, json
 import urllib2, urllib
 from flask import Flask, redirect, request
 app = Flask(__name__)
+shortcuts = { 	"a" : "amazon.com/s/?field-keywords=",
+                "b" : "bing.com/search?q=",
+                "d" : "duckduckgo.com/?q=",
+                "e" : "www.ebay.com/sch/items/?_nkw=",
+                "g" : "google.com/search?q=",
+                "q" : "google.com/search?q=site%3Aquora.com+",
+                "r" : "reddit.com/search?q=",
+                "s" : "soundcloud.com/search?q[fulltext]=",
+                "t" : "thesaurus.com/browse/",
+                "u" : "youtube.com/results?search_query=",
+                "w" : "en.wikipedia.org/w/index.php?search=",
+                "y" : "search.yahoo.com/search?p="                  }
 
 @app.route('/')
 def index():
@@ -17,9 +29,18 @@ def search():
     if re.search("^=", query):
         wolframalpha = "http://wolframalpha/input/?i=" + urllib.quote_plus(query[1:])
         return redirect(wolframalpha)
+    elif re.search("/[A-Za-z]$", query):
+        short = query[-1]
+        query = query[:-2]
+        if query == '':
+            if short != 'q':
+                surl = "http://" + shortcuts[short].split('/')[0]
+            else:
+                surl = 'http://quora.com'
+        else:
+            surl = "http://" + shortcuts[short] + query
+        return redirect(surl)
     elif re.search("//", query):
-        #if re.search("/[A-Za-z]$", query):
-            #stuff
         #if re.search("//define$", query):
             #stuff
         if re.search("//map$", query):

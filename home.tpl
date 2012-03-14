@@ -50,7 +50,7 @@
     <div class="syntax">
       <ul>
 	<li>=1+1 &mdash; Go to Wolfram Alpha with 1+1 as input.</li>
-	<li>cats//xkcd.com &mdash; Turns into a Google search for cats site:xkcd.com</li>
+	<li>cats//xkcd.com &mdash; Turns into a Bing search for cats site:xkcd.com</li>
 	<li>pots and pans/a &mdash; turns into an amazon search for pots and pans <a href="#" onclick='hide_and_show("bang");'>Click here for the list of shortcuts</a>
 	  <span id='bang' style='display:none'>
 	    <ul>
@@ -71,7 +71,7 @@
 	<li>//bit.ly &mdash; go straight to bit.ly</li>
 	<li>//reddit or //python.o &mdash; the .com is automatically added; .o becomes .org and .n becomes .net</li>
 	<li>United States// &mdash; avoids the handy wikipedia redirect, instead searching Google for United States</li>
-	<li>Proposterous//define &mdash; scrapes Urban Dictionary, Wiktionary and the Free Dictionary for the definition(s) of proposterous.</li>
+<!--	<li>Proposterous//define &mdash; scrapes Urban Dictionary, Wiktionary and the Free Dictionary for the definition(s) of proposterous.</li> -->
 	<li>New York//map &mdash; Google Maps search for New York. New York//img is an Google Image search.</li>
 	<li>require//code;l=ruby &mdash; Searches for ruby code containing the term require on GitHub.</li>
       </ul>
