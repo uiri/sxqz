@@ -1,0 +1,16 @@
+<head>
+	<title>{{title}}</title>
+	<style type="text/css">
+	  .NavFrame, .checktrans {
+	      display:none;
+	  }
+	</style>
+</head>
+<body>
+{% if urb != "" %}
+<h1>Urban Dictionary</h1>
+{% autoescape off %}
+{{urb}}
+{% endautoescape %}
+{% endif %}
+</body>

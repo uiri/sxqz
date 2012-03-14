@@ -1,6 +1,6 @@
 import os, re, json
-import urllib2, urllib
-from flask import Flask, redirect, request
+import urllib2, urllib, mwparser
+from flask import Flask, redirect, request, render_template
 app = Flask(__name__)
 shortcuts = { 	"a" : "amazon.com/s/?field-keywords=",
                 "b" : "bing.com/search?q=",
@@ -41,9 +41,33 @@ def search():
             surl = "http://" + shortcuts[short] + query
         return redirect(surl)
     elif re.search("//", query):
-        #if re.search("//define$", query):
-            #stuff
-        if re.search("//map$", query):
+        if re.search("//define$", query):
+            query = query.replace("//define", "")
+            urbanurl = "http://urbandictionary.com/define.php?term=" + urllib.quote_plus(query)
+            urbanfile = urllib2.urlopen(urbanurl)
+            urbanhtml = urbanfile.read().split("<table id='entries'>")
+            urbanhtml = urbanhtml[1].split("<!-- google_ad_section_end")
+            urbanhtml = "<table>" + urbanhtml[0]
+            urbanhtml = re.sub("\s(.+)\s<div class='greenery'>", "", urbanhtml)
+            urbanhtml = re.sub("(\s)<a href=\"#(.+)\s", "\g<1>", urbanhtml)
+            urbanhtml = re.sub("(\s)(.+)video\.php(.+)\s", "\g<1>", urbanhtml)
+            urbanhtml = re.sub("\s(.+)\s(.+)\s$", "", urbanhtml)
+            urbanhtml = re.sub("<script([^>]+)>\s//<([^<]+)</script>", "SCRIPT", urbanhtml)
+            urbanhtml = re.sub("\s(.+)SCRIPT(.+)\s", "", urbanhtml)
+            urbanhtml = re.sub("style='padding([^']+)'", "", urbanhtml)
+            urbanhtml = re.sub("\s(.+)urbanup(.+)>(\d\.)<(.+)\s", "\g<3>", urbanhtml)
+            urbanhtml = re.sub("/define\.php\?term=([^\"]+)", "/search?q=\g<1>//define", urbanhtml)
+            urbanhtml = re.sub("/(author\.php\?author=[a-zA-Z0-9 ]+)", "//urbandictionary.com/\g<1>", urbanhtml)
+            """            wikturl = "https://en.wiktionary.org/w/api.php?action=query&prop=revisions&rvprop=content&rvexpandtemplates=&format=json&titles=" + urllib.quote(query)
+            wiktfile = urllib2.urlopen(wikturl)
+            wiktjson = json.load(wiktfile)
+            wiktkeys = wiktjson[u'query'][u'pages'].keys()
+            wikthtmlobj = mwparser.WikiMarkup(s=wiktjson[u'query'][u'pages'][wiktkeys[0]][u'revisions'][0][u'*'].split("----")[0])
+            wikthtml = wikthtmlobj.render()
+            wikthtml = wikthtml.replace("&lt;\0", "<")
+            wikthtml = wikthtml.replace("&rt;\0", ">") """
+            return render_template("define.html", urb=urbanhtml, title=query)
+        elif re.search("//map$", query):
             query = query.replace("//map", "")
             mapurl = "http://google.com/maps?q=" + urllib.quote_plus(query)
             return redirect(mapurl)
