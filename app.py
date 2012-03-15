@@ -26,6 +26,8 @@ def index():
 @app.route('/search')
 def search():
     query = urllib.unquote_plus(request.args.get('q', ''))
+    if query == "":
+        return index()
     query = query.replace(' //', '//')
     if re.search("^=", query):
         wolframalpha = "http://wolframalpha.com/input/?i=" + urllib.quote(query[1:])
