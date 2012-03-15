@@ -28,7 +28,7 @@ def search():
     query = urllib.unquote_plus(request.args.get('q', ''))
     query = query.replace(' //', '//')
     if re.search("^=", query):
-        wolframalpha = "http://wolframalpha/input/?i=" + urllib.quote_plus(query[1:])
+        wolframalpha = "http://wolframalpha.com/input/?i=" + urllib.quote(query[1:])
         return redirect(wolframalpha)
     elif re.search("/[A-Za-z]$", query):
         short = query[-1]
@@ -103,7 +103,6 @@ def search():
                 query = query.replace(" site:.com", "")
     else:
         wikiurl = "https://en.wikipedia.org/w/api.php?format=json&action=query&titles=" + urllib.quote(query)
-        #request = urllib2.Request(url=wikiurl, headers={'User-Agent': 'Pass-Thrust'})
         wikijson = urllib2.urlopen(wikiurl).read()
         res = json.loads(wikijson)
         if int(res[u'query'][u'pages'].keys()[0]) != -1:
