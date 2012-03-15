@@ -1,6 +1,6 @@
 import os, re, json
 import urllib2, urllib
-from flask import Flask, redirect, request, render_template
+from flask import Flask, redirect, request, render_template, send_from_directory
 app = Flask(__name__)
 shortcuts = { 	"a" : "amazon.com/s/?field-keywords=",
                 "b" : "bing.com/search?q=",
@@ -15,12 +15,13 @@ shortcuts = { 	"a" : "amazon.com/s/?field-keywords=",
                 "w" : "en.wikipedia.org/w/index.php?search=",
                 "y" : "search.yahoo.com/search?p="                  }
 
+@app.route('/favicon.png')
+def favicon():
+    return send_from_directory(app.root_path, 'favicon.png', mimetype='image/png')
+
 @app.route('/')
 def index():
-    returnfile = open("home.tpl", 'r')
-    returnstr = returnfile.read()
-    print "hi"
-    return returnstr
+    return render_template("home.html")
 
 @app.route('/search')
 def search():
