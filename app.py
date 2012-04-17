@@ -30,7 +30,9 @@ def search():
         return index()
     query = query.replace(' //', '//')
     if re.search("^=", query):
-        wolframalpha = "http://wolframalpha.com/input/?i=" + urllib.quote(query[1:])
+        query = urllib.quote_plus(query[1:])
+        query = query.replace('+++', '+%2B+')
+        wolframalpha = "http://wolframalpha.com/input/?i=" + query
         return redirect(wolframalpha)
     elif re.search("/[A-Za-z]$", query):
         short = query[-1]
