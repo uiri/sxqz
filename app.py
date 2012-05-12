@@ -128,7 +128,7 @@ def search():
         if int(res[u'query'][u'pages'].keys()[0]) != -1:
             wikipedia = "http://en.wikipedia.org/wiki/" + urllib.quote(query)
             return redirect(wikipedia)
-    bing = "http://bing.com/search?q=" + urllib.quote_plus(query)
+    bing = "http://google.com/search?q=" + urllib.quote_plus(query)
     return redirect(bing)
     #return "hi"
 
