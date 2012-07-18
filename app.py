@@ -89,7 +89,7 @@ def search():
             query = query.split("//")[0]
             codeurl = "http://github.com/search?type=Code" + params + "&q=" + query
             return redirect(codeurl)
-        elif re.search("//translate(|[A-Za-z][A-Za-z])*$", query):
+        elif re.search("//translate(|[A-Za-z][A-Za-z])?(|[A-Za-z][A-Za-z])?$", query):
             query = query.replace("//translate", "")
             transurl = "http://translate.google.com/"
             if "|" in query:
