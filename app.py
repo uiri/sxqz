@@ -80,6 +80,10 @@ def search():
             query = query.replace("//img", "")
             imgurl = "http://google.com/search?tbm=isch&q=" + urllib.quote_plus(query)
             return redirect(imgurl)
+        elif re.search("//archive$", query):
+            query = query.replace("//archive", "")
+            archurl = "http://web.archive.org/web/*/" + query
+            return redirect(archurl)
         elif re.search("//code(;l=[A-Za-z]+)?$", query):
             if re.search("//code$/", query):
                 params = ""
@@ -105,6 +109,10 @@ def search():
                 transurl += "#auto|en|"
             transurl += query
             return redirect(transurl)
+        elif re.search("^[0-9]+//rfc$", query):
+            query = query.replace("//rfc", "")
+            rfcurl = "http://tools.ietf.org/html/rfc"+query
+            return redirect(rfcurl)
         else:
             if not re.search("\.[A-Za-z]{2,4}$", query):
                 if re.search("\.o$", query):
