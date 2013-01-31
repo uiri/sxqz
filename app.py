@@ -6,6 +6,7 @@ shortcuts = { 	"a" : "amazon.com/s/?field-keywords=",
                 "b" : "bing.com/search?q=",
                 "d" : "duckduckgo.com/?q=",
                 "e" : "www.ebay.com/sch/items/?_nkw=",
+                "f" : "www.google.com/finance?q=",
                 "g" : "google.com/search?q=",
                 "q" : "google.com/search?q=site%3Aquora.com+",
                 "r" : "reddit.com/search?q=",
@@ -138,7 +139,6 @@ def search():
             return redirect(wikipedia)
     bing = "http://google.com/search?q=" + urllib.quote_plus(query)
     return redirect(bing)
-    #return "hi"
 
 if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 5000.
