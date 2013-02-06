@@ -35,6 +35,9 @@ def search():
         query = query.replace('+++', '+%2B+')
         wolframalpha = "http://wolframalpha.com/input/?i=" + query
         return redirect(wolframalpha)
+    elif re.search("^/r/", query):
+        subreddit = "http://reddit.com"+query
+        return redirect(subreddit)
     elif re.search("/[A-Za-z]$", query):
         short = query[-1]
         query = query[:-2]
