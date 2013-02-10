@@ -117,6 +117,8 @@ def search():
             query = query.replace("//rfc", "")
             rfcurl = "http://tools.ietf.org/html/rfc"+query
             return redirect(rfcurl)
+        elif re.search("^//rand$", query):
+            return redirect("http://en.wikipedia.org/wiki/Special:Random")
         else:
             if not re.search("\.[A-Za-z]{2,4}$", query):
                 if re.search("\.o$", query):
