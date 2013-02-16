@@ -133,7 +133,9 @@ def search():
                     query += "com"
                 else:
                     query += ".com"
-            if re.search("^//", query):
+            if re.search("^//.com$", query):
+                query = ""
+            elif re.search("^//", query):
                 newurl = "http:" + query
                 return redirect(newurl)
             else:
