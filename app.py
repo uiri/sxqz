@@ -124,6 +124,12 @@ def search():
         elif re.search("^//rand$", query):
             return redirect("http://en.wikipedia.org/wiki/Special:Random")
         else:
+            subquery = ""
+            if re.search("^//", query):
+                if '/' in query[2:]:
+                    qsplitslash = query[2:].split('/', 1)
+                    subquery = qsplitslash[1]
+                    query = "//" + qsplitslash[0]
             if not re.search("\.[A-Za-z]{2,4}$", query):
                 if re.search("\.o$", query):
                     query += "rg"
@@ -136,7 +142,7 @@ def search():
             if re.search("^//.com$", query):
                 query = ""
             elif re.search("^//", query):
-                newurl = "http:" + query
+                newurl = "http:" + query + "/" + subquery
                 return redirect(newurl)
             else:
                 query = query.replace("//", " site:")
