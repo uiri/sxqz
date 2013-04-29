@@ -86,7 +86,7 @@ def search():
             return redirect(imgurl)
         elif re.search("//archive$", query):
             query = query.replace("//archive", "")
-            archurl = "http://web.archive.org/web/*/" + query
+            archurl = "http://wayback.archive.org/web/" + query
             return redirect(archurl)
         elif re.search("//code(;l=[A-Za-z]+)?$", query):
             if re.search("//code$/", query):
