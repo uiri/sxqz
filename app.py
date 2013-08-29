@@ -42,10 +42,12 @@ def search():
         short = query[-1]
         query = query[:-2]
         if query == '':
-            if short != 'q':
-                surl = "http://" + shortcuts[short].split('/')[0]
-            else:
+            if short == 'q':
                 surl = 'http://quora.com'
+            elif short == 'f':
+                surl = "http://www.google.com/finance"
+            else:
+                surl = "http://" + shortcuts[short].split('/')[0]
         else:
             surl = "http://" + shortcuts[short] + query
         return redirect(surl)
