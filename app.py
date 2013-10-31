@@ -1,6 +1,7 @@
 import os, re, json
 import urllib2, urllib
-from flask import Flask, redirect, request, render_template, send_from_directory
+from flask import Flask, request, render_template, send_from_directory
+from flask import redirect as _redirect
 app = Flask(__name__)
 shortcuts = { 	"a" : "amazon.com/s/?field-keywords=",
                 "b" : "bing.com/search?q=",
@@ -15,6 +16,12 @@ shortcuts = { 	"a" : "amazon.com/s/?field-keywords=",
                 "u" : "youtube.com/results?search_query=",
                 "w" : "en.wikipedia.org/w/index.php?search=",
                 "y" : "search.yahoo.com/search?p="                  }
+
+def redirect(url):
+    realurl = url.replace("+", "%2B")
+    realurl = realurl.replace("%2B%2B%2B", "+%2B+")
+    realurl = realurl.replace("%2B%2B", "+%2B")
+    return _redirect(realurl)
 
 @app.route('/favicon.png')
 def favicon():
@@ -161,5 +168,5 @@ def search():
 
 if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 5000.
-    port = int(os.environ.get('PORT', 5000))
+    port = int(os.environ.get('PORT', 2099))
     app.run(host='0.0.0.0', port=port)
