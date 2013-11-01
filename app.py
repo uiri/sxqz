@@ -1,7 +1,7 @@
 import os, re, json
 import urllib2, urllib
 from flask import Flask, request, render_template, send_from_directory
-from flask import redirect as _redirect
+from flask import redirect as redirect
 app = Flask(__name__)
 shortcuts = { 	"a" : "amazon.com/s/?field-keywords=",
                 "b" : "bing.com/search?q=",
@@ -16,12 +16,6 @@ shortcuts = { 	"a" : "amazon.com/s/?field-keywords=",
                 "u" : "youtube.com/results?search_query=",
                 "w" : "en.wikipedia.org/w/index.php?search=",
                 "y" : "search.yahoo.com/search?p="                  }
-
-def redirect(url):
-    realurl = url.replace("+", "%2B")
-    realurl = realurl.replace("%2B%2B%2B", "+%2B+")
-    realurl = realurl.replace("%2B%2B", "+%2B")
-    return _redirect(realurl)
 
 @app.route('/favicon.png')
 def favicon():
@@ -38,8 +32,8 @@ def search():
         return index()
     query = query.replace(' //', '//')
     if re.search("^=", query):
+        query = query.replace('+', '%2B')
         query = urllib.quote_plus(query[1:])
-        query = query.replace('+++', '+%2B+')
         wolframalpha = "http://wolframalpha.com/input/?i=" + query
         return redirect(wolframalpha)
     elif re.search("^/r/", query):
