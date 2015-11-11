@@ -81,7 +81,7 @@ def search():
             return render_template("define.html", urb=urbanhtml, title=query)
         elif re.search("//map$", query):
             query = query.replace("//map", "")
-            mapurl = "http://google.com/maps?q=" + urllib.quote_plus(query)
+            mapurl = "http://google.com/maps/?force=lite&q=" + urllib.quote_plus(query)
             return redirect(mapurl)
         elif re.search("//img$", query):
             query = query.replace("//img", "")
