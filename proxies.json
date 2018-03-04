@@ -1,0 +1,11 @@
+{
+    "$schema": "http://json.schemastore.org/proxies",
+    "proxies": {
+        "Index": {
+            "matchCondition": {
+                "route": "/"
+            },
+            "backendUri": "https://sxqz.azurewebsites.net/index"
+        }
+    }
+}
