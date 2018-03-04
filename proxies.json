@@ -1,11 +1,11 @@
 {
     "$schema": "http://json.schemastore.org/proxies",
     "proxies": {
-        "Index": {
+        "IndexProxy": {
             "matchCondition": {
-                "route": "/"
+                "route": "/",
             },
-            "backendUri": "https://sxqz.azurewebsites.net/index"
+            "backendUri": "https://%WEBSITE_HOSTNAME%/index"
         }
     }
 }
