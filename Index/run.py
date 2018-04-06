@@ -4,7 +4,8 @@ import json
 index_html = """<html>
 <head>
   <title>S.XQZ.CA</title>
-  <link type="image/png" rel="icon" href="/favicon.png">
+  <link type="image/png" rel="icon" href="/favicon.png" />
+  <link rel="search" type="application/opensearchdescription+xml" title="sxqz" href="http://j.xqz.ca/opensearch.xml" />
   <style type="text/css">
       body {
 	  color: #222;
