@@ -3,7 +3,7 @@
     "proxies": {
         "IndexProxy": {
             "matchCondition": {
-                "route": "/",
+                "route": "/"
             },
             "backendUri": "https://%WEBSITE_HOSTNAME%/index"
         }
