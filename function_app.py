@@ -1,3 +1,4 @@
+import azure.functions as func
 import os, re, json
 import urllib2, urllib
 from flask import Flask, request, render_template, send_from_directory
@@ -159,6 +160,11 @@ def search():
             return redirect(wikipedia)
     bing = "http://google.com/search?q=" + urllib.quote_plus(query)
     return redirect(bing)
+
+def main(req: func.HttpRequest, context: func.Context) -> func.HttpResponse:
+    """Each request is redirected to the WSGI handler.
+    """
+    return func.WsgiMiddleware(app.wsgi_app).handle(req, context)
 
 if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 5000.
